@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">The Movie Favorite</string>
+    <string name="tab_movie">MOVIES</string>
+    <string name="tab_tv_show">TV SHOWS</string>
+    <string name="change_language_settings">Choose Languange Setting</string>
+    <string name="image_logo">Logo</string>
 </resources>
