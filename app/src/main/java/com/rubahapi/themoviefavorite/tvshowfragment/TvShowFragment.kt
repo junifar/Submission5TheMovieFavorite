@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +63,7 @@ class TvShowFragment(context: Context) : Fragment(), TVShowView {
 
     private fun initComponent(savedInstanceState: Bundle?){
         adapter = TvShowAdapter(context!!, items){
+            Toast.makeText(contextMain, it.name, Toast.LENGTH_LONG).show()
             //            val intent = Intent(activity, DetailMovieActivity::class.java)
 //            intent.putExtra(
 //                DetailMovieActivity.EXTRA_DETAIL_ACTIVITY_TYPE,
