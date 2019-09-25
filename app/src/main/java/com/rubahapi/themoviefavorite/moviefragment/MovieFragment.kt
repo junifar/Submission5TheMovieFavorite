@@ -1,6 +1,7 @@
 package com.rubahapi.themoviefavorite.moviefragment
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rubahapi.themoviefavorite.R
 import com.rubahapi.themoviefavorite.adapter.MovieAdapter
 import com.rubahapi.themoviefavorite.model.Movie
+import com.rubahapi.themoviefavorite.resolver.MovieResolver
 
-class MovieFragment : Fragment(), MovieView {
+class MovieFragment(context: Context) : Fragment(), MovieView {
     private lateinit var presenter: MoviePresenter
     private var items: ArrayList<Movie> = arrayListOf()
     private lateinit var list:RecyclerView
+    private val mContext = context
 
     override fun onAttachView() {
         presenter.onAttach(this)
@@ -71,14 +74,16 @@ class MovieFragment : Fragment(), MovieView {
         }
         list.adapter = adapter
 
-        val result = getMovieDB()
+        val movieResolver = MovieResolver()
+
+        val result = movieResolver.selectMovie(mContext.contentResolver)
         showMovie(result)
     }
 
     companion object{
         @JvmStatic
-        fun newInstance(): MovieFragment {
-            return MovieFragment().apply {
+        fun newInstance(context: Context): MovieFragment {
+            return MovieFragment(context).apply {
                 arguments = Bundle().apply {}
             }
         }

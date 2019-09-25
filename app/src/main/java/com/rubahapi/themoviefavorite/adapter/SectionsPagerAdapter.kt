@@ -20,8 +20,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : 
     override fun getItem(position: Int): Fragment {
         this.positionState = position
         return when (position) {
-            0 -> MovieFragment.newInstance()
-            else -> TvShowFragment.newInstance()
+            0 -> MovieFragment.newInstance(context)
+            else -> TvShowFragment.newInstance(context)
         }
     }
 

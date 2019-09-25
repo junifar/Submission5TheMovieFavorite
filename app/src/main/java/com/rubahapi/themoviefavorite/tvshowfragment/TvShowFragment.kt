@@ -1,6 +1,7 @@
 package com.rubahapi.themoviefavorite.tvshowfragment
 
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,13 +15,14 @@ import com.rubahapi.themoviefavorite.R
 import com.rubahapi.themoviefavorite.adapter.MovieAdapter
 import com.rubahapi.themoviefavorite.model.Movie
 import com.rubahapi.themoviefavorite.model.TvShow
+import com.rubahapi.themoviefavorite.resolver.TVShowResolver
 
-class TvShowFragment : Fragment(), TVShowView {
+class TvShowFragment(context: Context) : Fragment(), TVShowView {
     private lateinit var presenter: TVShowPresenter
     private lateinit var adapter: TvShowAdapter
     private lateinit var list:RecyclerView
     private var items: ArrayList<TvShow> = arrayListOf()
-
+    private val contextMain = context
     override fun onAttachView() {
         presenter.onAttach(this)
     }
@@ -70,47 +72,16 @@ class TvShowFragment : Fragment(), TVShowView {
         }
         list.adapter = adapter
 
-        val result = getTVShowDB()
+        val tvShowResolver = TVShowResolver()
+        val result = tvShowResolver.selectTVShow(contextMain.contentResolver)
         showTVShow(result)
-        val urxx = activity?.contentResolver?.query(CONTENT_URI_TV_SHOW, null, null, null, null)
-
-    }
-
-    private fun getTVShowDB():List<TvShow>{
-        val result = mutableListOf<TvShow>()
-        val tvshow = TvShow(1, "xShow", "yShow", "")
-        result.add(tvshow)
-        val x = activity?.contentResolver?.query(CONTENT_URI_TV_SHOW, null, null, null, null)
-        x.use {
-
-                do{
-                    result.add(
-                        TvShow(
-                            x!!.getInt(x.getColumnIndex(_ID)),
-                            x.getString(x.getColumnIndex(TITLE)),
-                            x.getString(x.getColumnIndex(OVERVIEW)),
-                            x.getString(x.getColumnIndex(POSTER_PATH)
-                            )
-                        ))
-                }while (x!!.moveToNext())
-
-        }
-        return result
     }
 
     companion object{
-        const val AUTHORITY = "com.rubahapi.moviedb.provider.TVShowProvider"
-        const val TABLE_TV_SHOW = "tv_show_db"
-        val _ID = "ID"
-        val TITLE = "title"
-        val OVERVIEW = "overview"
-        val POSTER_PATH = "poster_path"
-        val CONTENT_URI_TV_SHOW: Uri = Uri.parse("content://" + AUTHORITY + "/" +
-                TABLE_TV_SHOW)
 
         @JvmStatic
-        fun newInstance(): TvShowFragment {
-            return TvShowFragment().apply {
+        fun newInstance(context: Context): TvShowFragment {
+            return TvShowFragment(context).apply {
                 arguments = Bundle().apply {}
             }
         }
