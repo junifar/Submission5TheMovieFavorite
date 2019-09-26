@@ -52,6 +52,26 @@ class MovieResolver{
         return urxx!!.pathSegments[1]
     }
 
+    fun selectMovie(contentResolver: ContentResolver, id: Int):ArrayList<Movie>{
+        val cursor = contentResolver.query(CONTENT_URI_MOVIE, null, "$_ID = $id", null, null)
+        val listMovie = arrayListOf<Movie>()
+        if (cursor.count > 0){
+            while (!cursor.isAfterLast){
+                val movie = Movie(
+                    cursor.getString(cursor.getColumnIndex(_ID)).toInt(),
+                    cursor.getString(cursor.getColumnIndex(TITLE)),
+                    cursor.getString(cursor.getColumnIndex(OVERVIEW)),
+                    cursor.getString(cursor.getColumnIndex(POSTER_PATH))
+                )
+                listMovie.add(movie)
+                cursor.moveToNext()
+            }
+        }
+        cursor.close()
+        return listMovie
+    }
+
+
     fun selectMovie(contentResolver: ContentResolver):ArrayList<Movie>{
         val cursor = contentResolver.query(CONTENT_URI_MOVIE, null, null, null, null)
         val listMovie = arrayListOf<Movie>()

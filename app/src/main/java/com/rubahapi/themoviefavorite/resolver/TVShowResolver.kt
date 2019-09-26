@@ -41,6 +41,25 @@ class TVShowResolver{
             TVSHOWS_ID)
     }
 
+    fun selectTvShow(contentResolver: ContentResolver, id: Int):ArrayList<TvShow>{
+        val cursor = contentResolver.query(CONTENT_URI_TV_SHOW, null, "$_ID = $id", null, null)
+        val listMovie = arrayListOf<TvShow>()
+        if (cursor.count > 0){
+            while (!cursor.isAfterLast){
+                val movie = TvShow(
+                    cursor.getString(cursor.getColumnIndex(_ID)).toInt(),
+                    cursor.getString(cursor.getColumnIndex(TITLE)),
+                    cursor.getString(cursor.getColumnIndex(OVERVIEW)),
+                    cursor.getString(cursor.getColumnIndex(POSTER_PATH))
+                )
+                listMovie.add(movie)
+                cursor.moveToNext()
+            }
+        }
+        cursor.close()
+        return listMovie
+    }
+
     fun insertTvShow(contentResolver:ContentResolver, tvShow: TvShow):String {
         val args = ContentValues()
         args.put(_ID, tvShow.id)
