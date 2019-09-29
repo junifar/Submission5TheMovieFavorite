@@ -2,6 +2,7 @@ package com.rubahapi.themoviefavorite.moviefragment
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.rubahapi.themoviefavorite.DetailMovieActivity
 import com.rubahapi.themoviefavorite.R
 import com.rubahapi.themoviefavorite.adapter.MovieAdapter
 import com.rubahapi.themoviefavorite.model.Movie
@@ -64,13 +66,13 @@ class MovieFragment(context: Context) : Fragment(), MovieView {
 
     private fun initComponent(savedInstanceState: Bundle?){
         adapter = MovieAdapter(items){
-//            val intent = Intent(activity, DetailMovieActivity::class.java)
-//            intent.putExtra(
-//                DetailMovieActivity.EXTRA_DETAIL_ACTIVITY_TYPE,
-//                DetailMovieActivity.EXTRA_DETAIL_MOVIE
-//            )
-//            intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_MOVIE, it)
-//            startActivity(intent)
+            val intent = Intent(activity, DetailMovieActivity::class.java)
+            intent.putExtra(
+                DetailMovieActivity.EXTRA_DETAIL_ACTIVITY_TYPE,
+                DetailMovieActivity.EXTRA_DETAIL_MOVIE
+            )
+            intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_MOVIE, it)
+            startActivity(intent)
         }
         list.adapter = adapter
 

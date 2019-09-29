@@ -55,6 +55,7 @@ class MovieResolver{
     fun selectMovie(contentResolver: ContentResolver, id: Int):ArrayList<Movie>{
         val cursor = contentResolver.query(CONTENT_URI_MOVIE, null, "$_ID = $id", null, null)
         val listMovie = arrayListOf<Movie>()
+        cursor.moveToFirst()
         if (cursor.count > 0){
             while (!cursor.isAfterLast){
                 val movie = Movie(

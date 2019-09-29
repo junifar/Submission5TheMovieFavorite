@@ -2,6 +2,7 @@ package com.rubahapi.themoviefavorite.tvshowfragment
 
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rubahapi.moviecatalogue.adapter.TvShowAdapter
+import com.rubahapi.themoviefavorite.DetailMovieActivity
 import com.rubahapi.themoviefavorite.R
 import com.rubahapi.themoviefavorite.adapter.MovieAdapter
 import com.rubahapi.themoviefavorite.model.Movie
@@ -64,13 +66,13 @@ class TvShowFragment(context: Context) : Fragment(), TVShowView {
     private fun initComponent(savedInstanceState: Bundle?){
         adapter = TvShowAdapter(context!!, items){
             Toast.makeText(contextMain, it.name, Toast.LENGTH_LONG).show()
-            //            val intent = Intent(activity, DetailMovieActivity::class.java)
-//            intent.putExtra(
-//                DetailMovieActivity.EXTRA_DETAIL_ACTIVITY_TYPE,
-//                DetailMovieActivity.EXTRA_DETAIL_MOVIE
-//            )
-//            intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_MOVIE, it)
-//            startActivity(intent)
+            val intent = Intent(activity, DetailMovieActivity::class.java)
+            intent.putExtra(
+                DetailMovieActivity.EXTRA_DETAIL_ACTIVITY_TYPE,
+                DetailMovieActivity.EXTRA_DETAIL_TV_SHOW
+            )
+            intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_TV_SHOW, it)
+            startActivity(intent)
         }
         list.adapter = adapter
 

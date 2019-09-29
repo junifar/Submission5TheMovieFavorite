@@ -44,6 +44,7 @@ class TVShowResolver{
     fun selectTvShow(contentResolver: ContentResolver, id: Int):ArrayList<TvShow>{
         val cursor = contentResolver.query(CONTENT_URI_TV_SHOW, null, "$_ID = $id", null, null)
         val listMovie = arrayListOf<TvShow>()
+        cursor.moveToFirst()
         if (cursor.count > 0){
             while (!cursor.isAfterLast){
                 val movie = TvShow(

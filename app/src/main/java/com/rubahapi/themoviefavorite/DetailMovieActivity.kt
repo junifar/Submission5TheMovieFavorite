@@ -16,7 +16,7 @@ class DetailMovieActivity : AppCompatActivity() {
     companion object{
         const val EXTRA_DETAIL_MOVIE = "DetailMovies"
         const val EXTRA_DETAIL_TV_SHOW = "DetailTVShow"
-        const val EXTRA_DETAIL_ACTIVITY_TYPE = "DetailActovotyType"
+        const val EXTRA_DETAIL_ACTIVITY_TYPE = "DetailActivityType"
     }
 
     private lateinit var movie: Movie
